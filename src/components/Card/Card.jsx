@@ -6,7 +6,7 @@ function Card({ data, type }) {
 
 
     const getCard = (type) => {
-        switch (type) {
+        switch (type) { 
             case "album": {
                 const { image, title, follows, slug, songs } = data; 
                 return (
