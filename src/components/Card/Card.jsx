@@ -1,41 +1,44 @@
 import React from "react";
 import styles from "./Card.module.css";
-import { Tooltip } from "@mui/material";
+import { Tooltip, Chip } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function Card({ data, type }) {
-
-
+    console.log("data", data);
     const getCard = (type) => {
-        switch (type) { 
+        switch (type) {
             case "album": {
-                const { image, title, follows, slug, songs } = data; 
+                const { image, title, follows, slug, songs } = data;
+
                 return (
                     <Tooltip title={`${songs.length} songs`} placement="top" arrow>
-                        <a href={`/album/${slug}`}>
+                        <Link to={`/album/${slug}`}>
                             <div className={styles.wrapper}>
                                 <div className={styles.card}>
                                     <img src={image} alt="song" loading="lazy" />
-                                    <div className={Styles.banner}>
-                                        <Chip label={`${follows} Follows`}
+                                    <div className={styles.banner}>
+                                        <Chip
+                                            label={`${follows} Follows`}
                                             size="small"
-                                            className={styles.chip} />
-
+                                            className={styles.chip}
+                                        />
                                     </div>
                                 </div>
                                 <div className={styles.titleWrapper}>
                                     <p>{title}</p>
                                 </div>
                             </div>
-                        </a>
+                        </Link>
                     </Tooltip>
                 );
             }
-            case "song": {
+            case "songs": {
+                const { image, title, follows, slug, songs, likes } = data;
                 return (
                     <div className={styles.wrapper}>
                         <div className={styles.card}>
                             <img src={image} alt="song" loading="lazy" />
-                            <div className={Styles.banner}>
+                            <div className={styles.banner}>
                                 <div className={styles.pill}>
                                     <p>{likes} Likes</p>
                                 </div>
@@ -48,13 +51,11 @@ function Card({ data, type }) {
                 );
             }
             default:
-                return <></>
-        };
-    }
+                return <></>;
+        }
+    };
+
     return getCard(type);
-
-
 }
-
 
 export default Card;
